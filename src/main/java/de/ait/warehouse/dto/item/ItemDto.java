@@ -8,7 +8,24 @@ public class ItemDto {
     private String title;
     private BigDecimal price;
     private Integer quantity;
+    private Long categoryId;
+    private String categoryName;
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public ItemDto() {
     }
@@ -47,6 +64,7 @@ public class ItemDto {
 
     @Override
     public String toString() {
-        return String.format("Item DTO: id-%d,title-%s,price-%.2f ,quantity-%d", id, title, price, quantity);
+        return String.format("Item DTO: id-%d,title-%s,price-%.2f ,quantity-%d, categoryId-%d,categoryName-%s ",
+                id, title, price, quantity, categoryId, categoryName);
     }
 }

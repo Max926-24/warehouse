@@ -7,8 +7,17 @@ public class ItemSaveDto {
     private String title;
     private BigDecimal price;
     private Integer quantity;
+    private Long categoryId;
 
     public ItemSaveDto() {
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Integer getQuantity() {
@@ -37,7 +46,7 @@ public class ItemSaveDto {
 
     @Override
     public String toString() {
-        return String.format("Item Save DTO: title-%s,price-%.2f,quantity-%d", title, price, quantity);
+        return String.format("Item Save DTO: title-%s,price-%.2f,quantity-%d, categoryId-%d", title, price, quantity, categoryId);
     }
 }
 

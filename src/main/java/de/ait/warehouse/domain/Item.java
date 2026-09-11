@@ -34,8 +34,20 @@ public class Item {
     @Column(name = "active")
     private boolean active;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 
     public Item() {
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
@@ -80,20 +92,21 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (!(o instanceof Item item))
+        if (!(o instanceof Item item)) {
             return false;
+        }
         return id != null && Objects.equals(id, item.id);
-
-
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 
     @Override
     public String toString() {

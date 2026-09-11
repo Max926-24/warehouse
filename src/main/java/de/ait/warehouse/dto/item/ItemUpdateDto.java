@@ -2,7 +2,7 @@ package de.ait.warehouse.dto.item;
 
 import java.math.BigDecimal;
 
-public class ItemUpdateDto {
+public class  ItemUpdateDto {
 
     private BigDecimal newPrice;
 
