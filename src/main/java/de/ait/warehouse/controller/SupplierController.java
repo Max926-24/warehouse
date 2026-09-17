@@ -4,6 +4,7 @@ package de.ait.warehouse.controller;
 import de.ait.warehouse.dto.supplier.SupplierDto;
 import de.ait.warehouse.dto.supplier.SupplierSaveDto;
 import de.ait.warehouse.service.interfaces.SupplierService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class SupplierController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SupplierDto save(@RequestBody SupplierSaveDto saveDto) {
+    public SupplierDto save(@Valid @RequestBody SupplierSaveDto saveDto) {
         return service.save(saveDto);
 
     }

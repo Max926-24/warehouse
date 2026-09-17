@@ -3,6 +3,7 @@ package de.ait.warehouse.controller;
 import de.ait.warehouse.dto.category.CategoryDto;
 import de.ait.warehouse.dto.category.CategorySaveDto;
 import de.ait.warehouse.service.interfaces.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto save(@RequestBody CategorySaveDto saveDto) {
+    public CategoryDto save(@Valid @RequestBody CategorySaveDto saveDto) {
         return service.save(saveDto);
 
     }

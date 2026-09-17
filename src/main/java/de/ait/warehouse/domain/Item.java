@@ -34,12 +34,27 @@ public class Item {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public Item() {
+    }
+
+    public BigDecimal getTotalValue() {
+        return price.multiply(BigDecimal.valueOf(quantity));
     }
 
     public Category getCategory() {
@@ -106,8 +121,6 @@ public class Item {
         return getClass().hashCode();
     }
 
-
-
     @Override
     public String toString() {
         return "Item{" +
@@ -116,6 +129,8 @@ public class Item {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", active=" + active +
+                ", category=" + category +
+                ", location=" + location +
                 '}';
     }
 }

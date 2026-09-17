@@ -1,7 +1,10 @@
 package de.ait.warehouse.dto.category;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CategorySaveDto {
 
+    @NotBlank
     private String name;
 
     public CategorySaveDto() {

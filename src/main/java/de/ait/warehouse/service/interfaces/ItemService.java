@@ -26,5 +26,7 @@ public interface ItemService {
 
     void restoreById(Long id);
 
+    List<ItemDto> findByCategoryId(Long categoryId);
+
 
 }

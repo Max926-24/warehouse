@@ -4,6 +4,7 @@ import de.ait.warehouse.dto.item.ItemDto;
 import de.ait.warehouse.dto.item.ItemSaveDto;
 import de.ait.warehouse.dto.item.ItemUpdateDto;
 import de.ait.warehouse.service.interfaces.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class ItemController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemDto save(@RequestBody ItemSaveDto saveDto) {
+    public ItemDto save(@Valid @RequestBody ItemSaveDto saveDto) {
         return service.save(saveDto);
 
     }
@@ -50,6 +51,11 @@ public class ItemController {
     @PutMapping("/{id}/restore")
     public void restoreById(@PathVariable Long id) {
         service.restoreById(id);
+    }
+
+    @GetMapping("/by-category/{categoryId}")
+    public List<ItemDto> getByCategory(@PathVariable Long categoryId) {
+        return service.findByCategoryId(categoryId);
     }
 
 

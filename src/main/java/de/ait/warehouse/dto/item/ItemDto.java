@@ -7,9 +7,11 @@ public class ItemDto {
     private Long id;
     private String title;
     private BigDecimal price;
+    private BigDecimal totalValue;
     private Integer quantity;
     private Long categoryId;
     private String categoryName;
+
 
     public Long getCategoryId() {
         return categoryId;
@@ -62,9 +64,17 @@ public class ItemDto {
         this.price = price;
     }
 
+    public BigDecimal getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(BigDecimal totalValue) {
+        this.totalValue = totalValue;
+    }
+
     @Override
     public String toString() {
-        return String.format("Item DTO: id-%d,title-%s,price-%.2f ,quantity-%d, categoryId-%d,categoryName-%s ",
-                id, title, price, quantity, categoryId, categoryName);
+        return String.format("Item DTO: id-%d,title-%s,price-%.2f ,quantity-%d, categoryId-%d,categoryName-%s,totalValue = %2f ",
+                id, title, price, quantity, categoryId, categoryName, totalValue);
     }
 }

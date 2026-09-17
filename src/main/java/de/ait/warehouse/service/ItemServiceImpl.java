@@ -93,4 +93,12 @@ public class ItemServiceImpl implements ItemService {
 
 
     }
+
+    @Override
+    public List<ItemDto> findByCategoryId(Long categoryId) {
+        return repository.findByCategoryId(categoryId)
+                .stream()
+                .map(mapper::mapEntityToDto)
+                .toList();
+    }
 }

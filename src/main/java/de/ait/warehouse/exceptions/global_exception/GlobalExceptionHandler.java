@@ -2,6 +2,7 @@ package de.ait.warehouse.exceptions.global_exception;
 
 
 import de.ait.warehouse.exceptions.types.EntityNotFoundException;
+import de.ait.warehouse.exceptions.types.InsufficientStockException;
 import de.ait.warehouse.exceptions.types.PriceMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PriceMismatchException.class)
     public ResponseEntity<String> handleException(PriceMismatchException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<String> handleException(InsufficientStockException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

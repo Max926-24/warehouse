@@ -1,10 +1,18 @@
 package de.ait.warehouse.dto.supplier;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class SupplierSaveDto {
 
+    @NotBlank
     private String name;
+
     private String address;
+
     private String phone;
+
+    @Email
     private String email;
 
     public String getName() {
