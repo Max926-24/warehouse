@@ -13,6 +13,7 @@ import de.ait.warehouse.service.interfaces.ItemService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -100,5 +101,14 @@ public class ItemServiceImpl implements ItemService {
                 .stream()
                 .map(mapper::mapEntityToDto)
                 .toList();
+    }
+
+    @Override
+    public BigDecimal getTotalWarehouseValue() {
+        return repository.findAll()
+                .stream()
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
     }
 }

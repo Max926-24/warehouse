@@ -6,8 +6,10 @@ import de.ait.warehouse.dto.item.ItemUpdateDto;
 import de.ait.warehouse.service.interfaces.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -56,6 +58,11 @@ public class ItemController {
     @GetMapping("/by-category/{categoryId}")
     public List<ItemDto> getByCategory(@PathVariable Long categoryId) {
         return service.findByCategoryId(categoryId);
+    }
+
+    @GetMapping("/total-value")
+    public ResponseEntity<BigDecimal> getTotalWarehouseValue() {
+        return ResponseEntity.ok(service.getTotalWarehouseValue());
     }
 
 

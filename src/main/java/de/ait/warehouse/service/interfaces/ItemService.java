@@ -5,6 +5,7 @@ import de.ait.warehouse.dto.item.ItemSaveDto;
 
 import de.ait.warehouse.dto.item.ItemUpdateDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ItemService {
@@ -27,6 +28,8 @@ public interface ItemService {
     void restoreById(Long id);
 
     List<ItemDto> findByCategoryId(Long categoryId);
+
+    BigDecimal getTotalWarehouseValue();
 
 
 }
