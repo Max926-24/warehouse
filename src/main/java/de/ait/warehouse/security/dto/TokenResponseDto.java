@@ -1,0 +1,21 @@
+package de.ait.warehouse.security.dto;
+
+public class TokenResponseDto {
+
+    private String accessToken;
+
+    public TokenResponseDto() {
+    }
+
+    public TokenResponseDto(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+}
