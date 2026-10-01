@@ -4,17 +4,19 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    # TODO: подставьте реальные host/port/имя базы из вашего docker-контейнера
     url: jdbc:postgresql://localhost:5432/warehouse
     username: postgres
-    password: 123
+    password: postgres
+
+  # Liquibase: схема БД создаётся миграциями из db/changelog
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
   jpa:
     hibernate:
-      # update: Hibernate сам создаёт/дополняет таблицы по сущностям.
-      # Удобно для обучения; в "боевом" проекте так делать не стоит -
-      # там для этого используют Liquibase/Flyway (как в g_74_shop).
-      ddl-auto: update
+      # validate: схему создаёт Liquibase, Hibernate только проверяет,
+      # что сущности совпадают с таблицами (и падает при расхождении)
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:

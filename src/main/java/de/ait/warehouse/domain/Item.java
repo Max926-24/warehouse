@@ -27,7 +27,7 @@ public class Item {
     @NotNull
     private Integer quantity;
 
-    @Column(name = "price")
+    @Column(name = "price", precision = 10, scale = 2)
     @DecimalMin("0.0")
     private BigDecimal price;
 

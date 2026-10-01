@@ -30,7 +30,7 @@ public class Delivery {
     @NotNull
     private Integer quantity;
 
-    @Column(name = "price_per_unit")
+    @Column(name = "price_per_unit", precision = 10, scale = 2)
     @DecimalMin("0.0")
     @NotNull
     private BigDecimal pricePerUnit;
