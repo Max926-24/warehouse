@@ -2,6 +2,11 @@ spring:
   application:
     name: warehouse
 
+  # Секреты (JWT-ключ) лежат в отдельном файле secret.properties в корне проекта.
+  # Этот файл в .gitignore и на GitHub не попадает.
+  config:
+    import: optional:file:./secret.properties
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/warehouse
@@ -28,3 +33,8 @@ server:
 logging:
   level:
     root: info
+
+jwt:
+  # сам ключ берётся из secret.properties (переменная JWT_SECRET)
+  secret: ${JWT_SECRET}
+  expiration-minutes: 60
