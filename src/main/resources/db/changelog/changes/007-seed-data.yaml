@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-seed-data
+      author: maxim
+      comment: Стартовые тестовые данные (категории, поставщики, места хранения, товары)
+      changes:
+        - sql:
+            sql: |
+              -- Категории
+              INSERT INTO category (name) VALUES
+                ('Garden supplies'),
+                ('Home Goods'),
+                ('Tools');
+
+              -- Поставщики
+              INSERT INTO supplier (name, address, phone, email) VALUES
+                ('GreenLeaf GmbH',      'Hafenstr. 12, Flensburg',     '+49 461 100001', 'info@greenleaf.de'),
+                ('Nordic Garden AG',    'Holmstr. 5, Kiel',            '+49 431 100002', 'sales@nordicgarden.de'),
+                ('HomeStyle KG',        'Mönckebergstr. 20, Hamburg',  '+49 40 100003',  'order@homestyle.de'),
+                ('Haushalt Plus GmbH',  'Bahnhofstr. 8, Lübeck',       '+49 451 100004', 'kontakt@haushaltplus.de'),
+                ('ToolMaster GmbH',     'Industriestr. 44, Bremen',    '+49 421 100005', 'info@toolmaster.de'),
+                ('Werkzeug Nord',       'Werftstr. 3, Rostock',        '+49 381 100006', 'service@werkzeugnord.de'),
+                ('BauFix AG',           'Am Markt 1, Hannover',        '+49 511 100007', 'b2b@baufix.de'),
+                ('EcoGarden Supply',    'Parkweg 17, Schleswig',       '+49 4621 100008','hello@ecogarden.de'),
+                ('CleanHome GmbH',      'Lindenallee 9, Husum',        '+49 4841 100009','info@cleanhome.de'),
+                ('ProTools Handel',     'Kanalstr. 22, Neumünster',    '+49 4321 100010','verkauf@protools.de');
+
+              -- Места хранения (блок + полка)
+              INSERT INTO location (block, shelf) VALUES
+                ('A', '1'), ('A', '2'),
+                ('B', '1'), ('B', '2'),
+                ('C', '1'), ('C', '2');
+
+              -- Товары: 10 на категорию, склад пустой (quantity = 0) - заполняется поставками
+              INSERT INTO item (title, quantity, price, active, category_id, location_id)
+              SELECT v.title, 0, v.price, TRUE,
+                     (SELECT id FROM category WHERE name = v.category),
+                     (SELECT id FROM location WHERE block = v.block AND shelf = v.shelf)
+              FROM (VALUES
+                ('Garden Hose 20m',    24.99, 'Garden supplies', 'A', '1'),
+                ('Watering Can',        9.99, 'Garden supplies', 'A', '1'),
+                ('Flower Pot Set',     14.50, 'Garden supplies', 'A', '1'),
+                ('Potting Soil 40L',    7.49, 'Garden supplies', 'A', '1'),
+                ('Garden Gloves',       5.99, 'Garden supplies', 'A', '1'),
+                ('Lawn Seed 1kg',      11.90, 'Garden supplies', 'A', '2'),
+                ('Pruning Shears',     18.75, 'Garden supplies', 'A', '2'),
+                ('Garden Sprinkler',   16.40, 'Garden supplies', 'A', '2'),
+                ('Plant Fertilizer',    8.25, 'Garden supplies', 'A', '2'),
+                ('Wheelbarrow',        79.00, 'Garden supplies', 'A', '2'),
+                ('Towel Set',          19.99, 'Home Goods',      'B', '1'),
+                ('Bed Sheet',          29.90, 'Home Goods',      'B', '1'),
+                ('Table Lamp',         34.50, 'Home Goods',      'B', '1'),
+                ('Wall Clock',         22.00, 'Home Goods',      'B', '1'),
+                ('Storage Box',        12.49, 'Home Goods',      'B', '1'),
+                ('Kitchen Knife Set',  45.00, 'Home Goods',      'B', '2'),
+                ('Cookware Pot 5L',    39.95, 'Home Goods',      'B', '2'),
+                ('Laundry Basket',     15.99, 'Home Goods',      'B', '2'),
+                ('Door Mat',           11.50, 'Home Goods',      'B', '2'),
+                ('Curtain Pair',       27.80, 'Home Goods',      'B', '2'),
+                ('Hammer',             14.99, 'Tools',           'C', '1'),
+                ('Screwdriver Set',    21.50, 'Tools',           'C', '1'),
+                ('Cordless Drill',     89.00, 'Tools',           'C', '1'),
+                ('Tape Measure 5m',     6.99, 'Tools',           'C', '1'),
+                ('Adjustable Wrench',  13.25, 'Tools',           'C', '1'),
+                ('Rake',               12.99, 'Tools',           'C', '2'),
+                ('Hand Saw',           17.40, 'Tools',           'C', '2'),
+                ('Spirit Level',       10.99, 'Tools',           'C', '2'),
+                ('Pliers',              8.90, 'Tools',           'C', '2'),
+                ('Toolbox',            32.00, 'Tools',           'C', '2')
+              ) AS v(title, price, category, block, shelf);
