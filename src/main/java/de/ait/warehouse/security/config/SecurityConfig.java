@@ -27,9 +27,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(x -> x.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .authorizeHttpRequests(x -> x
+                        // открыто всем
+                        .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+
+                        // справочники — только ADMIN
+                        .requestMatchers(HttpMethod.POST, "/items", "/categories", "/suppliers", "/locations").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/items/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/items/**").hasRole("ADMIN")
+
+                        // движение товара — USER и ADMIN
+                        .requestMatchers(HttpMethod.POST, "/deliveries", "/sales").hasAnyRole("USER", "ADMIN")
+
+                        // всё остальное (все GET) — любой залогиненный
                         .anyRequest().authenticated()
+
 
                 )
                 .exceptionHandling(x -> x.authenticationEntryPoint(
